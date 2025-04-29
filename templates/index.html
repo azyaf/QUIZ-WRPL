@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booked Alumni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Booked Alumni</h1>
+
+    <form method="get" action="/">
+        <input type="text" name="search" placeholder="Search alumni name..." value="{{ search }}">
+        <select name="event_id">
+            <option value="">All Events</option>
+            {% for eid in event_ids %}
+            <option value="{{ eid }}" {% if event_filter == eid|string %}selected{% endif %}>Event {{ eid }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Alumni Name</th>
+                <th>Event ID</th>
+                <th>Booked Seats</th>
+                <th>Booking Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in alumni %}
+            <tr>
+                <td>{{ row['alumni_id'] }}</td>
+                <td>{{ row['event_id'] }}</td>
+                <td>{{ row['booked_seats'] }}</td>
+                <td>{{ row['booking_date'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
